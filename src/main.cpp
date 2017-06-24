@@ -89,13 +89,32 @@ private:
 
 class Board {
 public:
-	Board(Grid &g, vector<Unit> &ours, vector<Unit> &others) : grid(g), ourUnits(ours), otherUnits(others)
+	Board(Grid &g, vector<Unit> &ours, vector<Unit> &others, vector<string> &legalActions) : 
+		grid(g), ourUnits(ours), otherUnits(others), legalActions(legalActions)
 	{}
+
+	string generateAction(const int& counter) {
+		string action = "";
+
+		if (counter % 2 == 0) {
+			action = "MOVE&BUILD 0 N S";
+		}
+		else {
+			action = "MOVE&BUILD 0 S N";
+		}
+
+		if (std::find(legalActions.begin(), legalActions.end(), action) == legalActions.end())
+		{
+			action = legalActions.at(0);
+		}
+		return action;
+	}
 
 private:
 	Grid grid;
 	vector<Unit> ourUnits;
 	vector<Unit> otherUnits;
+	vector<string> legalActions;
 };
 
 class Action {
@@ -128,22 +147,6 @@ private:
 };
 
 
-string generateAction(const int& counter, const vector<string> &legalActions) {
-	string action = "";
-
-	if (counter % 2 == 0) {
-		action = "MOVE&BUILD 0 N S";
-	}
-	else {
-		action = "MOVE&BUILD 0 S N";
-	}
-
-	if (std::find(legalActions.begin(), legalActions.end(), action) == legalActions.end())
-	{
-		action = legalActions.at(0);
-	}
-	return action;
-}
 
 void fillGrid(Grid & grid, const vector<string> &rows, const int &size) {
 
@@ -294,11 +297,11 @@ int main(int argc, char** argv) {
 	assert(grid.getCell(4, 0) == -1);
 	assert(grid.getCell(2, 3) == 2);
 
-	Board board(grid, ourUnits, otherUnits);
+	Board board(grid, ourUnits, otherUnits, legalActions);
 
-	assert(generateAction(counter, legalActions) == "MOVE&BUILD 0 S N");
+	assert(board.generateAction(counter) == "MOVE&BUILD 0 S N");
 
-	cout << generateAction(counter, legalActions) << endl;;
+	cout << board.generateAction(counter) << endl;;
 
 	testing::InitGoogleTest(&argc, argv);
 	RUN_ALL_TESTS(); 
