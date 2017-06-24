@@ -101,9 +101,14 @@ private:
 class Action {
 public:
 	Action() {}
+	Action(ACTION_TYPE at, int i, DIRECTION dm, DIRECTION db): actionType(at), index(i), dirMove(dm), dirBuild(db){}
 	string getAsString() const {
 		return to_string(actionType) + " " + to_string(index) + " " + to_string(dirMove) + " " + to_string(dirBuild);
 	}
+	void setActionType(ACTION_TYPE at) { actionType = at; }
+	void setIndex(int i) { index = i; }
+	void setDirMove(DIRECTION dm) { dirMove = dm; }
+	void setDirBuild(DIRECTION db) { dirBuild = db; }
 
 private:
 	ACTION_TYPE actionType;
@@ -111,6 +116,7 @@ private:
 	DIRECTION dirMove;
 	DIRECTION dirBuild;
 };
+
 
 class Rules {
 public:
