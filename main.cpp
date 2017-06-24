@@ -1,7 +1,6 @@
 // WonderDev.cpp : Defines the entry point for the console application.
 //
 
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,9 +15,19 @@ struct Point
 	int y;
 };
 
+class Unit {
+public:
+	Unit(Point p) : position(p) {}
+	const Point getPosition() const { return position; }
+	Point setPosition(const Point &p) { position = p; }
+
+private:
+	Point position;
+};
+
 class Grid {
 public:
-	Grid(const vector<vector<int>> &cells, int size) : cells(cells), size(size)
+	Grid(const vector<vector<int> > &cells, int size) : cells(cells), size(size)
 	{}
 
 	int getCell(const Point &p) const { return cells.at(p.x).at(p.y); }
@@ -29,8 +38,20 @@ public:
 
 
 private:
-	vector<vector<int>> cells;
+	vector<vector<int> > cells;
 	int size;
+};
+
+
+class Board {
+public:
+	Board(Grid &g, vector<Unit> &ours, vector<Unit> &others) : grid(g), ourUnits(ours), otherUnits(others)
+	{}
+
+private:
+	Grid grid;
+	vector<Unit> ourUnits;
+	vector<Unit> otherUnits;
 };
 
 
@@ -152,10 +173,10 @@ int main() {
 	rows.push_back("03234");
 	rows.push_back("00003");
 
-	vector<Point> myUnits;
-	myUnits.push_back({2, 2});
-	vector<Point> otherUnits;
-	myUnits.push_back({3, 3});
+	vector<Unit> ourUnits;
+	ourUnits.push_back(Unit({2, 2}));
+	vector<Unit> otherUnits;
+	otherUnits.push_back(Unit({3, 3}));
 
 	vector<string> legalActions;
 	legalActions.push_back("MOVE&BUILD 0 E N");
@@ -200,6 +221,9 @@ int main() {
 	assert(grid.getCell(4, 1) == 0);
 	assert(grid.getCell(4, 0) == -1);
 	assert(grid.getCell(2, 3) == 2);
+
+	Board board(grid, ourUnits, otherUnits);
+
 	assert(generateAction(counter, legalActions) == "MOVE&BUILD 0 S N");
 
 	cout << generateAction(counter, legalActions) << endl;;
