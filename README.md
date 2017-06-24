@@ -16,4 +16,4 @@ Excluded files:
 * Evaluation.h and .cpp (redefinition...)
 * main.cpp (only use locally)
 
-inGameMain.cpp is needed as it is the working main in game
+inGameMain.txt is needed as it is the working main in game
