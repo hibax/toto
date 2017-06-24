@@ -8,119 +8,10 @@
 #include <assert.h>
 #include "gtest/gtest.h"
 #include "Action.h"
-
-
-
-struct Point
-{
-	int x;
-	int y;
-};
-
-class Unit {
-public:
-	Unit(Point p) : position(p) {}
-	const Point getPosition() const { return position; }
-	Point setPosition(const Point &p) { position = p; }
-
-private:
-	Point position;
-};
-
-class Grid {
-public:
-	Grid(const vector<vector<int> > &cells, int size) : cells(cells), size(size)
-	{}
-
-	int getCell(const Point &p) const { return cells.at(p.x).at(p.y); }
-	int getCell(int row, int column) const { return cells.at(row).at(column); }
-	void setCell(const Point &p, const int &i) { cells.at(p.x).at(p.y) = i; }
-	void setCell(int row, int column, int height) { cells.at(row).at(column) = height; }
-	bool inGrid(int row, int column) const { return (row < size) && (column < size); }
-
-
-private:
-	vector<vector<int> > cells;
-	int size;
-};
-
-
-class Board {
-public:
-	Board(Grid &g, vector<Unit> &ours, vector<Unit> &others, vector<string> &legalActions) : 
-		grid(g), ourUnits(ours), otherUnits(others), legalActions(legalActions)
-	{}
-
-	string generateAction(const int& counter) {
-		string action = "";
-
-		if (counter % 2 == 0) {
-			action = "MOVE&BUILD 0 N S";
-		}
-		else {
-			action = "MOVE&BUILD 0 S N";
-		}
-
-		if (std::find(legalActions.begin(), legalActions.end(), action) == legalActions.end())
-		{
-			action = legalActions.at(0);
-		}
-		return action;
-	}
-
-private:
-	Grid grid;
-	vector<Unit> ourUnits;
-	vector<Unit> otherUnits;
-	vector<string> legalActions;
-};
-
-
-
-
-class Rules {
-public:
-	Rules(vector<Action> a) : actions(a) {};
-	vector<Action> getActions() const { return actions; }
-
-private:
-	vector<Action> actions;
-};
-
-
-
-void fillGrid(Grid & grid, const vector<string> &rows, const int &size) {
-
-	for (int y = 0; y < size; y++) {
-		for (int x = 0; x < size; x++) {
-			char c = rows.at(y).at(x);
-			int a = int(c);
-			switch (c)
-			{
-				case '.':
-					grid.setCell(x, y, -1);
-					break;
-				case '0':
-					grid.setCell(x, y, 0);
-					break;
-				case '1':
-					grid.setCell(x, y, 1);
-					break;
-				case '2':
-					grid.setCell(x, y, 2);
-					break;
-				case '3':
-					grid.setCell(x, y, 3);
-					break;
-				case '4':
-					grid.setCell(x, y, 4);
-					break;
-				default:
-					break;
-			}
-		}
-	}
-}
+#include "Grid.h"
+#include "Point.h"
+#include "Unit.h"
+#include "Board.h"
 
 
 /*
@@ -231,7 +122,7 @@ int main(int argc, char** argv) {
 
 	vector<vector<int> > cells(size, vector<int>(size));
 	Grid grid(cells, size);
-	fillGrid(grid, rows, size);
+	grid.fillGrid(grid, rows, size);
 
 	assert(grid.getCell(1, 2) == 4);
 	assert(grid.getCell(4, 1) == 0);
