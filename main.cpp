@@ -51,13 +51,10 @@ string generateAction(const int& counter, const vector<string> &legalActions) {
 	return action;
 }
 
-void fillMap(Map &map, const vector<string> &rows) {
+void fillMap(Map &map, const vector<string> &rows, const int &size) {
 
-	int xSize = rows.at(0).size();
-	int ySize = rows.size();
-
-	for (int y = 0; y < ySize; y++) {
-		for (int x = 0; x < xSize; x++) {
+	for (int y = 0; y < size; y++) {
+		for (int x = 0; x < size; x++) {
 			char c = rows.at(y).at(x);
 			int a = int(c);
 			switch (c)
@@ -196,7 +193,7 @@ int main() {
 
 	vector<vector<int> > cells(size, vector<int>(size));
 	Map map(cells);
-	fillMap(map, rows);
+	fillMap(map, rows, size);
 
 	assert(map.getCell(1, 2) == 4);
 	assert(map.getCell(4, 1) == 0);
