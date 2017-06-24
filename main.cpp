@@ -51,6 +51,42 @@ string generateAction(const int& counter, const vector<string> &legalActions) {
 	return action;
 }
 
+void fillMap(Map &map, const vector<string> &rows) {
+
+	int xSize = rows.at(0).size();
+	int ySize = rows.size();
+
+	for (int y = 0; y < ySize; y++) {
+		for (int x = 0; x < xSize; x++) {
+			char c = rows.at(y).at(x);
+			int a = int(c);
+			switch (c)
+			{
+				case '.':
+					map.setCell(x, y, -1);
+					break;
+				case '0':
+					map.setCell(x, y, 0);
+					break;
+				case '1':
+					map.setCell(x, y, 1);
+					break;
+				case '2':
+					map.setCell(x, y, 2);
+					break;
+				case '3':
+					map.setCell(x, y, 3);
+					break;
+				case '4':
+					map.setCell(x, y, 4);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+}
+
 
 /*
 	Uncomment in Coding Game
@@ -112,7 +148,7 @@ int main() {
 	int size = 5;
 	int unitsPerPlayer = 1;
 	vector<string> rows;
-	rows.push_back("00000");
+	rows.push_back(".000.");
 	rows.push_back("00000");
 	rows.push_back("04104");
 	rows.push_back("03234");
@@ -157,6 +193,15 @@ int main() {
 	legalActions.push_back("MOVE&BUILD 0 S SW");
 	legalActions.push_back("MOVE&BUILD 0 S W");
 
+
+	vector<vector<int> > cells(size, vector<int>(size));
+	Map map(cells);
+	fillMap(map, rows);
+
+	assert(map.getCell(1, 2) == 4);
+	assert(map.getCell(4, 1) == 0);
+	assert(map.getCell(4, 0) == -1);
+	assert(map.getCell(2, 3) == 2);
 	assert(generateAction(counter, legalActions) == "MOVE&BUILD 0 S N");
 
 	cout << generateAction(counter, legalActions) << endl;;
