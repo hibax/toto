@@ -9,7 +9,8 @@ merger.py path_to_sources
 
 ## Output
 path_to_sources/../generated_src/codingame.cpp
-just directly copy file content in game
+
+Then copy file content in game
 
 ## Limitations
 The script parse only the dir provided and not recursively.
