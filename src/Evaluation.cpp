@@ -1,4 +1,7 @@
 #include "Evaluation.h"
+/*
+	Ne comppile pas
+
 
 namespace Evaluation {
 	int score(const Board & board) {
@@ -9,4 +12,4 @@ namespace Evaluation {
 namespace Evaluation {
 	int score(const Board & board);
 }
-   
+*/
