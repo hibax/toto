@@ -1,7 +1,6 @@
 // WonderDev.cpp : Defines the entry point for the console application.
 //
 
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -18,7 +17,7 @@ struct Point
 
 class Grid {
 public:
-	Grid(const vector<vector<int>> &cells, int size) : cells(cells), size(size)
+	Grid(const vector<vector<int> > &cells, int size) : cells(cells), size(size)
 	{}
 
 	int getCell(const Point &p) const { return cells.at(p.x).at(p.y); }
@@ -29,7 +28,7 @@ public:
 
 
 private:
-	vector<vector<int>> cells;
+	vector<vector<int> > cells;
 	int size;
 };
 
