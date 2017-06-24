@@ -1,8 +1,6 @@
 // WonderDev.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
-
 
 #include <iostream>
 #include <string>
@@ -18,18 +16,21 @@ struct Point
 	int y;
 };
 
-class Map {
+class Grid {
 public:
-	Map(const vector<vector<int>> &cells) : cells(cells) {};
+	Grid(const vector<vector<int>> &cells, int size) : cells(cells), size(size)
+	{}
 
 	int getCell(const Point &p) const { return cells.at(p.x).at(p.y); }
-	int getCell(const int &x, const int &y) const { return cells.at(x).at(y); }
+	int getCell(int row, int column) const { return cells.at(row).at(column); }
 	void setCell(const Point &p, const int &i) { cells.at(p.x).at(p.y) = i; }
-	void setCell(const int &x, const int &y, const int &i) { cells.at(x).at(y) = i; }
+	void setCell(int row, int column, int height) { cells.at(row).at(column) = height; }
+	bool inGrid(int row, int column) const { return (row < size) && (column < size); }
 
 
 private:
 	vector<vector<int>> cells;
+	int size;
 };
 
 
@@ -51,7 +52,7 @@ string generateAction(const int& counter, const vector<string> &legalActions) {
 	return action;
 }
 
-void fillMap(Map &map, const vector<string> &rows, const int &size) {
+void fillGrid(Grid & grid, const vector<string> &rows, const int &size) {
 
 	for (int y = 0; y < size; y++) {
 		for (int x = 0; x < size; x++) {
@@ -60,22 +61,22 @@ void fillMap(Map &map, const vector<string> &rows, const int &size) {
 			switch (c)
 			{
 				case '.':
-					map.setCell(x, y, -1);
+					grid.setCell(x, y, -1);
 					break;
 				case '0':
-					map.setCell(x, y, 0);
+					grid.setCell(x, y, 0);
 					break;
 				case '1':
-					map.setCell(x, y, 1);
+					grid.setCell(x, y, 1);
 					break;
 				case '2':
-					map.setCell(x, y, 2);
+					grid.setCell(x, y, 2);
 					break;
 				case '3':
-					map.setCell(x, y, 3);
+					grid.setCell(x, y, 3);
 					break;
 				case '4':
-					map.setCell(x, y, 4);
+					grid.setCell(x, y, 4);
 					break;
 				default:
 					break;
@@ -192,13 +193,13 @@ int main() {
 
 
 	vector<vector<int> > cells(size, vector<int>(size));
-	Map map(cells);
-	fillMap(map, rows, size);
+	Grid grid(cells, size);
+	fillGrid(grid, rows, size);
 
-	assert(map.getCell(1, 2) == 4);
-	assert(map.getCell(4, 1) == 0);
-	assert(map.getCell(4, 0) == -1);
-	assert(map.getCell(2, 3) == 2);
+	assert(grid.getCell(1, 2) == 4);
+	assert(grid.getCell(4, 1) == 0);
+	assert(grid.getCell(4, 0) == -1);
+	assert(grid.getCell(2, 3) == 2);
 	assert(generateAction(counter, legalActions) == "MOVE&BUILD 0 S N");
 
 	cout << generateAction(counter, legalActions) << endl;;
