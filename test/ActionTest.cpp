@@ -1,11 +1,10 @@
 #include <limits.h>
 #include "gtest/gtest.h"
-#include "Evaluation.h"
 #include "Action.h"
 
 using namespace std;
 
-TEST(Action, firstTest) {
+TEST(Action, testGetAsString) {
 	Action action(ACTION_TYPE::MOVEBUILD, 1, DIRECTION::NE, DIRECTION::S);
 
 	string expectedAction = "MOVE&BUILD 1 NE S";

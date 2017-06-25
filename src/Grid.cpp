@@ -8,7 +8,7 @@ int Grid::getCell(const Point &p) const { return cells.at(p.x).at(p.y); }
 int Grid::getCell(int row, int column) const { return cells.at(row).at(column); }
 void Grid::setCell(const Point &p, const int &i) { cells.at(p.x).at(p.y) = i; }
 void Grid::setCell(int row, int column, int height) { cells.at(row).at(column) = height; }
-bool Grid::inGrid(int row, int column) const { return (row < size) && (column < size); }
+bool Grid::inGrid(int row, int column) const { return (row < size) && (column < size) && row >= 0 && column >= 0; }
 
 
 void Grid::fillGrid(Grid & grid, const vector<string> &rows, const int &size) {
