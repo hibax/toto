@@ -1,17 +1,10 @@
 
 #include <algorithm>
 #include <vector>
+#include "Action.h"
 
 using namespace std;
 
-
-struct Action
-{
-	int i;
-public:
-	Action(int v) : i(v) {}
-	Action() : i(0) {}
-};
 
 struct Board
 {
@@ -21,11 +14,6 @@ public:
 	Board(int id) : id(id) {}
 };
 
-namespace GameRules {
-
-	vector<pair<Action, Board> > produceNextValidBoards(const Board & board, bool myTurn);
-
-}
 
 namespace Evaluation {
 	int score(const Board & board);

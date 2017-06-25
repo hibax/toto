@@ -1,7 +1,5 @@
 #include "Grid.h"
 
-using namespace std;
-
 Grid::Grid(const vector<vector<int> > &cells, int size): cells(cells), size(size) {}
 
 int Grid::getCell(const Point &p) const { return cells.at(p.x).at(p.y); }

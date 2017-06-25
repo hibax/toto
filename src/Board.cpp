@@ -1,4 +1,5 @@
 #include "Board.h"
+#include <algorithm>
 
 
 Board::Board(Grid &g, vector<Unit> &ours, vector<Unit> &others, vector<string> &legalActions) :

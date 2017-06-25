@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "Point.h"
 
 using namespace std;

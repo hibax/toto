@@ -2,6 +2,7 @@
 #include <vector>
 #include "Action.h"
 
+/*
 class Rules {
 public:
 	Rules(vector<Action> a);
@@ -10,4 +11,9 @@ public:
 private:
 	vector<Action> actions;
 };
+*/
+
+namespace GameRules {
+	vector<pair<Action, Board> > produceNextValidBoards(const Board & board, bool myTurn);
+}
 

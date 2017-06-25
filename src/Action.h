@@ -26,6 +26,7 @@ public:
 	void setIndex(int i);
 	void setDirMove(DIRECTION dm);
 	void setDirBuild(DIRECTION db);
+	int getIndex() const;
 
 private:
 	ACTION_TYPE actionType;
@@ -33,4 +34,3 @@ private:
 	DIRECTION dirMove;
 	DIRECTION dirBuild;
 };
-

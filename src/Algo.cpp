@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include "Algo.h"
+#include "Rules.h"
 
 using namespace std;
 

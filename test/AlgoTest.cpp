@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "Algo.h"
+#include "Rules.h"
 
 class AlgoTest : public ::testing::Test {
  protected:
@@ -36,32 +37,34 @@ namespace Evaluation {
 	}
 }
 
-
+Action toAction(int id) {
+	return std::move(Action(MOVE, id, N, N));
+}
 
 vector<pair<Action, Board> > GameRules::produceNextValidBoards(const Board & board, bool myTurn) { return vector<pair<Action, Board> >(); }
 
 TEST_F(AlgoTest,EvaluateSimplePaths){
     
-	Node<Move> root(Move(Action(1), a));
-	Node<Move> left(Move(Action(2), b));
-	Node<Move> right(Move(Action(3), c));
+	Node<Move> root(Move(toAction(1), a));
+	Node<Move> left(Move(toAction(2), b));
+	Node<Move> right(Move(toAction(3), c));
 
 	root.connect(left);
 	root.connect(right);
 
 
-    EXPECT_EQ(left.getValue().first.i,evaluatePaths(root).i);
+    EXPECT_EQ(left.getValue().first.getIndex(),evaluatePaths(root).getIndex());
 }
 
 TEST_F(AlgoTest,EvaluateMorePaths){
     
-	Node<Move> root(Move(Action(1), a));
-	Node<Move> leftRoot(Move(Action(2), e));
-	Node<Move> leftLeft(Move(Action(3), d));
-	Node<Move> leftRight(Move(Action(4), c));
-	Node<Move> rightRoot(Move(Action(5), g));
-	Node<Move> rightLeft(Move(Action(6), b));
-	Node<Move> rightRight(Move(Action(7), f));
+	Node<Move> root(Move(toAction(1), a));
+	Node<Move> leftRoot(Move(toAction(2), e));
+	Node<Move> leftLeft(Move(toAction(3), d));
+	Node<Move> leftRight(Move(toAction(4), c));
+	Node<Move> rightRoot(Move(toAction(5), g));
+	Node<Move> rightLeft(Move(toAction(6), b));
+	Node<Move> rightRight(Move(toAction(7), f));
 
 	leftRoot.connect(leftLeft);
 	leftRoot.connect(leftRight);
@@ -70,6 +73,6 @@ TEST_F(AlgoTest,EvaluateMorePaths){
 	root.connect(leftRoot);
 	root.connect(rightRoot);
 
-    EXPECT_EQ(rightRoot.getValue().first.i,evaluatePaths(root).i);
+    EXPECT_EQ(rightRoot.getValue().first.getIndex(),evaluatePaths(root).getIndex());
 }
 
