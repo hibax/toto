@@ -1,22 +1,15 @@
+#pragma once
 
 #include <algorithm>
 #include <vector>
-#include "Action.h"
 
 using namespace std;
-
-class Board;
-
-namespace Evaluation {
-	int score(const Board & board);
-}
-
-typedef pair<Action, Board> Move;
 
 
 
 namespace Algo {
-	Action getBest(const Board & board);
+	template <typename T> 
+	T getBest(const T & currentState);
 }
 
 
@@ -46,10 +39,12 @@ private:
 	std::vector<Node<T>> children;
 };
 
-void nextNodes(Node<Move> & node, bool myTurn, int nbTurns);
+template <typename T>
+void computeTurns(Node<T> & node, bool myTurn, int maxNbTurns);
 
-Action evaluatePaths(const Node<Move> & rootNode);
+template <typename T>
+T evaluatePaths(const Node<T> & rootNode);
 
 
 
-
+#include "Algo.hpp"

@@ -1,7 +1,17 @@
 #include "Rules.h"
+#include "Action.h"
+#include "Board.h"
+#include <utility>
 
 
+using namespace std;
 
-Rules::Rules(vector<Action> a) : actions(a) {};
-vector<Action> Rules::getActions() const { return actions; }
+
+namespace GameRules {
+
+	template <>
+	vector<pair<Action, Board> > produceNextStates(const pair<Action, Board> & state, bool myTurn) {
+		return vector<pair<Action, Board> >();
+	}
+}
 

@@ -13,23 +13,28 @@ class AlgoTest : public ::testing::Test {
 
 
 
-Board a(1);
-Board b(2);
-Board c(3);
-Board d(4);
-Board e(5);
-Board f(6);
-Board g(7);
+typedef pair<int, int> State;
+
+
+State a(1, 1);
+State b(2, 2);
+State c(3, 3);
+State d(4, 4);
+State e(5, 5);
+State f(6, 6);
+State g(7, 7);
+
 
 namespace Evaluation {
-	int score(const Board & board) {
-		if (board.id == b.id) {
+	template<>
+	int score(const State & state) {
+		if (state.second == b.second) {
 			return 10;
-		} else if (board.id == c.id) {
+		} else if (state.second == c.second) {
 			return -3;
-		} else if (board.id == d.id) {
+		} else if (state.second == d.second) {
 			return 100;
-		} else if (board.id == f.id) {
+		} else if (state.second == f.second) {
 			return 5;
 		}
 
@@ -37,34 +42,44 @@ namespace Evaluation {
 	}
 }
 
-Action toAction(int id) {
-	return std::move(Action(MOVE, id, N, N));
-}
 
-vector<pair<Action, Board> > GameRules::produceNextValidBoards(const Board & board, bool myTurn) { return vector<pair<Action, Board> >(); }
+template <>
+vector<State> GameRules::produceNextStates(const State & state, bool myTurn) {
+	if (state.second == a.second) {
+		return {e, g};
+	} else if (state.second == e.second) {
+		return {d, c};
+	} else if (state.second == g.second) {
+		return {b, f};
+	}
+
+	return vector<State>();
+
+
+}
 
 TEST_F(AlgoTest,EvaluateSimplePaths){
     
-	Node<Move> root(Move(toAction(1), a));
-	Node<Move> left(Move(toAction(2), b));
-	Node<Move> right(Move(toAction(3), c));
+	Node<State> root(a);
+	Node<State> left(b);
+	Node<State> right(c);
 
 	root.connect(left);
 	root.connect(right);
 
 
-    EXPECT_EQ(left.getValue().first.getIndex(),evaluatePaths(root).getIndex());
+    EXPECT_EQ(left.getValue().first,evaluatePaths(root).first);
 }
 
 TEST_F(AlgoTest,EvaluateMorePaths){
     
-	Node<Move> root(Move(toAction(1), a));
-	Node<Move> leftRoot(Move(toAction(2), e));
-	Node<Move> leftLeft(Move(toAction(3), d));
-	Node<Move> leftRight(Move(toAction(4), c));
-	Node<Move> rightRoot(Move(toAction(5), g));
-	Node<Move> rightLeft(Move(toAction(6), b));
-	Node<Move> rightRight(Move(toAction(7), f));
+	Node<State> root(a);
+	Node<State> leftRoot(e);
+	Node<State> leftLeft(d);
+	Node<State> leftRight(c);
+	Node<State> rightRoot(g);
+	Node<State> rightLeft(b);
+	Node<State> rightRight(f);
 
 	leftRoot.connect(leftLeft);
 	leftRoot.connect(leftRight);
@@ -73,6 +88,15 @@ TEST_F(AlgoTest,EvaluateMorePaths){
 	root.connect(leftRoot);
 	root.connect(rightRoot);
 
-    EXPECT_EQ(rightRoot.getValue().first.getIndex(),evaluatePaths(root).getIndex());
+    EXPECT_EQ(rightRoot.getValue().first,evaluatePaths(root).first);
+}
+
+TEST_F(AlgoTest, ComuteMoreTurns) {
+	Node<State> root(a);
+
+	computeTurns(root, true, 1);
+
+	EXPECT_EQ(2, root.getChildren()[0].getChildren().size());
+	EXPECT_EQ(2, root.getChildren()[1].getChildren().size());
 }
 

@@ -1,11 +1,6 @@
 #pragma once
 
-struct Board {
-
-	
-	
-};
-
 namespace Evaluation {
-	int score(const Board & board);
+	template <typename T>
+	int score(const T & state);
 }

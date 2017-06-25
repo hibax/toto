@@ -1,12 +1,21 @@
 #include "Evaluation.h"
-/*
-	Ne comppile pas
+#include <utility>
+#include "Action.h"
+#include "Board.h"
 
-*/
+
+using namespace std;
 
 namespace Evaluation {
-	int score(const Board & board) {
+
+	template <>
+	int score(const pair<Action, Board> & move) {
 		return 2;
 	}
+
+
+
 }
+
+
 
