@@ -50,4 +50,5 @@ void Action::setIndex(int i) { index = i; }
 void Action::setDirMove(DIRECTION dm) { dirMove = dm; }
 void Action::setDirBuild(DIRECTION db) { dirBuild = db; }
 int Action::getIndex() const { return index; }
-
+DIRECTION Action::getDirMove() const { return dirMove; }
+DIRECTION Action::getDirBuild() const { return dirBuild; }

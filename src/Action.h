@@ -27,6 +27,8 @@ public:
 	void setDirMove(DIRECTION dm);
 	void setDirBuild(DIRECTION db);
 	int getIndex() const;
+	DIRECTION getDirMove() const;
+	DIRECTION getDirBuild() const;
 
 private:
 	ACTION_TYPE actionType;

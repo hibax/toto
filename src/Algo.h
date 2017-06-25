@@ -5,15 +5,7 @@
 
 using namespace std;
 
-
-struct Board
-{
-	int id;
-public:
-	Board() : id(0) {}
-	Board(int id) : id(id) {}
-};
-
+class Board;
 
 namespace Evaluation {
 	int score(const Board & board);

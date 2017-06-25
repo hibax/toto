@@ -1,13 +1,26 @@
 #include "Grid.h"
 
+const static int HOLE = -1;
+const static int CEILING = 4;
+
+
 Grid::Grid(const vector<vector<int> > &cells, int size): cells(cells), size(size) {}
 
-int Grid::getCell(const Point &p) const { return cells.at(p.x).at(p.y); }
+int Grid::getCell(const Cell &p) const { return cells.at(p.row).at(p.column); }
 int Grid::getCell(int row, int column) const { return cells.at(row).at(column); }
-void Grid::setCell(const Point &p, const int &i) { cells.at(p.x).at(p.y) = i; }
+void Grid::setCell(const Cell &p, const int &i) { cells.at(p.row).at(p.column) = i; }
 void Grid::setCell(int row, int column, int height) { cells.at(row).at(column) = height; }
 bool Grid::inGrid(int row, int column) const { return (row < size) && (column < size); }
+bool Grid::canMove(const Cell & source, const Cell & destination) const { return true; }
 
+bool Grid::canBuild(const Cell & source, const Cell & destination) const {
+	if (!inGrid(destination.row, destination.column)) {
+		return false;
+	}
+
+	const int cellHeight = getCell(destination.row, destination.column);
+	return cellHeight > HOLE && cellHeight < CEILING;
+}
 
 void Grid::fillGrid(Grid & grid, const vector<string> &rows, const int &size) {
 

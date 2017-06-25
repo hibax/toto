@@ -1,13 +1,13 @@
 #pragma once
-#include "Point.h"
+#include "Cell.h"
 
 
 class Unit {
 public:
-	Unit(Point p);
-	const Point getPosition() const;
-	void setPosition(const Point &p);
+	Unit(Cell p);
+	const Cell getPosition() const;
+	void setPosition(const Cell &p);
 
 private:
-	Point position;
+	Cell position;
 };
