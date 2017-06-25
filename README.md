@@ -5,12 +5,15 @@
 # Files mergers
 
 ## Usage
-merger.py path_to_sources
+merger.py path_to_project
+
 
 ## Output
-path_to_sources/../generated_src/codingame.cpp
+The script will merge the files in path_to_project/src
 
-Then copy file content in game
+Into one file : path_to_project/generated_src/codingame.cpp
+
+Then you have to copy the generated file content in the game
 
 ## Limitations
 The script parse only the dir provided and not recursively.
