@@ -9,11 +9,11 @@ merger.py path_to_project
 
 
 ## Output
-The script will merge the files in *path_to_project/src*
+The script will merge the files in path_to_project/src
 
-into one file : path_to_project/generated_src/codingame.cpp
+Into one file : path_to_project/generated_src/codingame.cpp
 
-Then copy file content in game
+Then you have to copy the generated file content in the game
 
 ## Limitations
 The script parse only the dir provided and not recursively.
