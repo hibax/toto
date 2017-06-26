@@ -52,6 +52,39 @@ Cell Board::getDestinationCell(const Cell & position, DIRECTION direction) {
 	}
 }
 
+vector<Action> Board::produceUnitLegalActions(const Unit & unit) const
+{
+	vector<Action> legalActions;
+
+	for (int dirMove = DIRECTION::N; dirMove != DIRECTION::NW; ++dirMove) {
+
+		for (int dirBuild = DIRECTION::N; dirBuild != DIRECTION::NW; ++dirBuild) {
+
+			Action possibleAction(ACTION_TYPE::MOVEBUILD, unit.getId(), static_cast<DIRECTION>(dirMove), static_cast<DIRECTION>(dirBuild));
+
+			if (isValid(possibleAction)) {
+				legalActions.push_back(possibleAction);
+			}
+		}
+	}
+
+	return legalActions;
+}
+
+vector<Action> Board::produceAllLegalActions(bool myTurn) const
+{
+	vector<Action> allActions;
+	vector<Unit> units = myTurn? ourUnits : otherUnits;
+
+	for (Unit unit : units) {
+		vector<Action> unitActions = produceUnitLegalActions(unit);
+
+		allActions.insert(allActions.end(), unitActions.begin(), unitActions.end());
+	}
+
+	return allActions;
+}
+
 bool Board::isValid(const Action & action) const {
 	const Cell & sourceCell = getPosition(action.getIndex());
 	const Cell & destinationCell = getDestinationCell(sourceCell, action.getDirMove());

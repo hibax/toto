@@ -18,9 +18,9 @@ TEST(Board, testGenerateAction) {
 	rows.push_back("00003");
 
 	vector<Unit> ourUnits;
-	ourUnits.push_back(Unit({ 2, 2 }));
+	ourUnits.push_back(Unit(0, { 2, 2 }));
 	vector<Unit> otherUnits;
-	otherUnits.push_back(Unit({ 3, 3 }));
+	otherUnits.push_back(Unit(1, { 3, 3 }));
 
 	vector<string> legalActions;
 	legalActions.push_back("MOVE&BUILD 0 E N");

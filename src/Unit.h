@@ -4,10 +4,12 @@
 
 class Unit {
 public:
-	Unit(Cell p);
+	Unit(int id, Cell p);
 	const Cell getPosition() const;
 	void setPosition(const Cell &p);
+	int getId() const;
 
 private:
+	int id;
 	Cell position;
 };

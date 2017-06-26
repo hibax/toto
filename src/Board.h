@@ -25,6 +25,10 @@ public:
 
 	static Cell getDestinationCell(const Cell & position, DIRECTION direction);
 
+	vector<Action> produceUnitLegalActions(const Unit & unit) const;
+
+	vector<Action> produceAllLegalActions(bool myTurn) const;
+
 private:
 	Cell getPosition(int index) const;
 
