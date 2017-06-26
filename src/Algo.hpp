@@ -1,8 +1,8 @@
 
+#pragma once
 #include <algorithm>
 #include <vector>
 #include <iostream>
-#include "Algo.h"
 #include "Rules.h"
 #include "Evaluation.h"
 

@@ -1,6 +1,6 @@
 #include "Unit.h"
 
-Unit::Unit(Point p) : position(p) {}
-const Point Unit::getPosition() const { return position; }
-void Unit::setPosition(const Point &p) { position = p; }
+Unit::Unit(Cell p) : position(p) {}
+const Cell Unit::getPosition() const { return position; }
+void Unit::setPosition(const Cell &p) { position = p; }
 

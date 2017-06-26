@@ -3,9 +3,10 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include "Algo.h"
 #include "Action.h"
 #include "Grid.h"
-#include "Point.h"
+#include "Cell.h"
 #include "Unit.h"
 #include "Board.h"
 
@@ -32,14 +33,14 @@ int main()
 		}
 		vector<Unit> ourUnits;
 		for (int i = 0; i < unitsPerPlayer; i++) {
-			Point pos;
-			cin >> pos.x >> pos.y; cin.ignore();
+			Cell pos;
+			cin >> pos.row >> pos.column; cin.ignore();
 			ourUnits.push_back(Unit(pos));
 		}
 		vector<Unit> otherUnits;
 		for (int i = 0; i < unitsPerPlayer; i++) {
-			Point pos;
-			cin >> pos.x >> pos.y; cin.ignore();
+			Cell pos;
+			cin >> pos.row >> pos.column; cin.ignore();
 			otherUnits.push_back(Unit(pos));
 		}
 

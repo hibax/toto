@@ -3,7 +3,7 @@ import re
 import sys
 
 
-excluded_files = ["inGameMain.txt", "Algo.cpp", "Algo.h", "Evaluation.cpp", "Evaluation.h"]
+excluded_files = ["inGameMain.txt"]
 
 include_regex = r"#include \"([\w\.]+)\""
 

@@ -9,7 +9,7 @@
 #include "gtest/gtest.h"
 #include "Action.h"
 #include "Grid.h"
-#include "Point.h"
+#include "Cell.h"
 #include "Unit.h"
 #include "Board.h"
 
