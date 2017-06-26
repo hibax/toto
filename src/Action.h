@@ -15,10 +15,8 @@ enum DIRECTION
 
 static const DIRECTION DIRECTIONS[] = {N, NE, E, SE, S, SW, W, NW};
 
-namespace Utils {
-	static string to_string(ACTION_TYPE actionType);
-	static string to_string(DIRECTION direction);
-}
+static string to_str(ACTION_TYPE actionType);
+static string to_str(DIRECTION direction);
 
 class Action {
 public:
