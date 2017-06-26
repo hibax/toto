@@ -44,7 +44,7 @@ Action::Action(ACTION_TYPE at, int i, DIRECTION dm, DIRECTION db):
 	actionType(at), index(i), dirMove(dm), dirBuild(db) {}
 
 string Action::getAsString() const {
-	return Utils::to_string(actionType) + " " + to_string(index) + " " + Utils::to_string(dirMove) + " " + Utils::to_string(dirBuild);
+	return Utils::to_string(actionType) + " " + std::to_string(index) + " " + Utils::to_string(dirMove) + " " + Utils::to_string(dirBuild);
 }
 
 void Action::setActionType(ACTION_TYPE at) { actionType = at; }
