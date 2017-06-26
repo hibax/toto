@@ -11,15 +11,26 @@ int Grid::getCell(int row, int column) const { return cells.at(row).at(column); 
 void Grid::setCell(const Cell &p, const int &i) { cells.at(p.row).at(p.column) = i; }
 void Grid::setCell(int row, int column, int height) { cells.at(row).at(column) = height; }
 bool Grid::inGrid(int row, int column) const { return (row < size) && (column < size) && row >= 0 && column >= 0; }
-bool Grid::canMove(const Cell & source, const Cell & destination) const { return true; }
+
+bool Grid::isInGame(const Cell & cell) const { 
+	const int cellHeight = getCell(cell);
+	return cellHeight > HOLE && cellHeight < CEILING;
+}
+
+bool Grid::canMove(const Cell & source, const Cell & destination) const {
+	if (!inGrid(destination.row, destination.column) || !isInGame(destination)) {
+		return false;
+	}
+
+	return (getCell(source) + 1) >= getCell(destination);
+}
 
 bool Grid::canBuild(const Cell & source, const Cell & destination) const {
 	if (!inGrid(destination.row, destination.column)) {
 		return false;
 	}
 
-	const int cellHeight = getCell(destination.row, destination.column);
-	return cellHeight > HOLE && cellHeight < CEILING;
+	return isInGame(destination);
 }
 
 void Grid::fillGrid(Grid & grid, const vector<string> &rows, const int &size) {

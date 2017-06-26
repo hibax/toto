@@ -23,11 +23,15 @@ string Board::generateAction(const int& counter) {
 	return action;
 }
 
+vector<Unit> Board::getOurUnits() const { return ourUnits; }
+vector<Unit> Board::getOtherUnits() const { return otherUnits; }
+Grid Board::getGrid() const { return grid; }
+
 Cell Board::getPosition(int index) const {
 	return ourUnits[index].getPosition();
 }
 
-Cell getDestinationCell(const Cell & position, DIRECTION direction) {
+Cell Board::getDestinationCell(const Cell & position, DIRECTION direction) {
 	switch (direction) {
 		case N:
 			return Cell(position.row - 1, position.column);

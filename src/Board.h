@@ -15,9 +15,15 @@ public:
 
 	Cell getOurUnitPosition(int index) const;
 
+	vector<Unit> getOurUnits() const;
+	vector<Unit> getOtherUnits() const;
+	Grid getGrid() const;
+
 	bool isValid(const Action & action) const;
 
 	Board play(const Action & action) const;
+
+	static Cell getDestinationCell(const Cell & position, DIRECTION direction);
 
 private:
 	Cell getPosition(int index) const;
