@@ -3,6 +3,7 @@
 #include "Board.h"
 #include <utility>
 
+#include <algorithm>
 
 using namespace std;
 
@@ -25,3 +26,8 @@ namespace GameRules {
 	}
 }
 
+int mergeScores(const vector<int> & scores) {
+	auto result = minmax_element(scores.begin(), scores.end());
+
+	return (*result.first < 0) ? *result.first : *result.second;
+}

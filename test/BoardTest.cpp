@@ -1,6 +1,7 @@
 #include <limits.h>
 #include "gtest/gtest.h"
 #include "Board.h"
+#include "Algo.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ TEST(Board, testGenerateAction) {
 	rows.push_back("00003");
 
 	vector<Unit> ourUnits;
-	ourUnits.push_back(Unit(0, { 2, 2 }));
+	ourUnits.push_back(Unit(0, { 0, 0 }));
 	vector<Unit> otherUnits;
 	otherUnits.push_back(Unit(1, { 3, 3 }));
 
@@ -62,6 +63,13 @@ TEST(Board, testGenerateAction) {
 	grid.fillGrid(grid, rows, size);
 
 	Board board(grid, ourUnits, otherUnits, legalActions);
+
+	pair<Action, Board> result = Algo::getBest(make_pair(Action(), board));
+
+	Action actionToPerform = result.first;
+	string actionAsString = actionToPerform.getAsString();
+
+	EXPECT_NE(actionToPerform.getAsString(), "MOVE&BUILD 0 N N");
 
 	EXPECT_EQ(board.generateAction(counter), "MOVE&BUILD 0 S N");
 

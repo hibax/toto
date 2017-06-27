@@ -1,5 +1,5 @@
-
 #pragma once
+
 #include <algorithm>
 #include <vector>
 #include <iostream>
@@ -37,12 +37,7 @@ void computeTurns(Node<T> & node, bool myTurn, int maxNbTurns)
 	}
 }
 
-int mergeScores(const vector<int> & scores) {
-	auto result = minmax_element(scores.begin(), scores.end());
-
-	return (*result.first < 0) ? *result.first : *result.second;
-}
-
+int mergeScores(const vector<int> & scores);
 
 template <typename T>
 int evaluateSubPaths(const Node<T> & node) {
