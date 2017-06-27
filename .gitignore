@@ -30,3 +30,17 @@
 *.exe
 *.out
 *.app
+
+*.suo
+*.log
+*.pdb
+*.idb
+*.sln
+*.vcxproj
+*.db
+*.opendb
+*.filters
+Debug/*
+scripts/*
+generated_src/*
+ipch/*
