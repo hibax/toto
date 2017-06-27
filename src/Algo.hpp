@@ -63,7 +63,7 @@ int evaluateSubPaths(const Node<T> & node) {
 template <typename T>
 T evaluatePaths(const Node<T> & rootNode) {
 	int bestScore = 0;
-	T state;
+	T state = rootNode.getValue();
 
 	for (Node<T> & child : rootNode.getChildren()) {
 		const int score = evaluateSubPaths(child);

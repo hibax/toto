@@ -24,6 +24,7 @@ int main()
 	// game loop
 	while (1) {
 
+		int index = 0;
 		vector<string> rows;
 
 		for (int i = 0; i < size; i++) {
@@ -34,14 +35,14 @@ int main()
 		vector<Unit> ourUnits;
 		for (int i = 0; i < unitsPerPlayer; i++) {
 			Cell pos;
-			cin >> pos.row >> pos.column; cin.ignore();
-			ourUnits.push_back(Unit(pos));
+			cin >> pos.column >> pos.row; cin.ignore();
+			ourUnits.push_back(Unit(index++, pos));
 		}
 		vector<Unit> otherUnits;
 		for (int i = 0; i < unitsPerPlayer; i++) {
 			Cell pos;
-			cin >> pos.row >> pos.column; cin.ignore();
-			otherUnits.push_back(Unit(pos));
+			cin >> pos.column >> pos.row; cin.ignore();
+			otherUnits.push_back(Unit(index++, pos));
 		}
 
 		vector<string> legalActions;
@@ -50,11 +51,11 @@ int main()
 		cin >> legalActionsSize; cin.ignore();
 		for (int i = 0; i < legalActionsSize; i++) {
 			string type;
-			int index;
+			int lgUnitIndex;
 			string dir1;
 			string dir2;
-			cin >> type >> index >> dir1 >> dir2; cin.ignore();
-			legalActions.push_back(type + " " + to_string(index) + " " + dir1 + " " + dir2);
+			cin >> type >> lgUnitIndex >> dir1 >> dir2; cin.ignore();
+			legalActions.push_back(type + " " + to_string(lgUnitIndex) + " " + dir1 + " " + dir2);
 		}
 
 		vector<vector<int> > cells(size, vector<int>(size));
@@ -64,10 +65,14 @@ int main()
 
 		Board board(grid, ourUnits, otherUnits, legalActions);
 
+		auto current = make_pair(Action(), board);
+
+		auto bestAction = Algo::getBest(current).first;
+
 		// Write an action using cout. DON'T FORGET THE "<< endl"
 		// To debug: cerr << "Debug messages..." << endl;
 		counter++;
-		cout << board.generateAction(counter) << endl;
+		cout << bestAction.getAsString() << endl;
 
 	}
 }

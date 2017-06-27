@@ -38,6 +38,9 @@ static string to_str(DIRECTION direction) {
 }
 
 
+
+Action::Action(): actionType(MOVEBUILD), index(0), dirMove(N), dirBuild(N) {}
+
 Action::Action(ACTION_TYPE at, int i, DIRECTION dm, DIRECTION db):
 	actionType(at), index(i), dirMove(dm), dirBuild(db) {}
 

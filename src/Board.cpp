@@ -2,6 +2,9 @@
 #include <algorithm>
 
 
+Board::Board() :
+	grid(), ourUnits(), otherUnits(), legalActions()
+{}
 Board::Board(Grid &g, vector<Unit> &ours, vector<Unit> &others, vector<string> &legalActions) :
 	grid(g), ourUnits(ours), otherUnits(others), legalActions(legalActions)
 {}
@@ -34,21 +37,21 @@ Cell Board::getPosition(int index) const {
 Cell Board::getDestinationCell(const Cell & position, DIRECTION direction) {
 	switch (direction) {
 		case N:
-			return Cell(position.row - 1, position.column);
+			return Cell(position.column, position.row - 1);
 		case NE:
-			return Cell(position.row - 1, position.column + 1);
+			return Cell(position.column + 1, position.row - 1);
 		case E:
-			return Cell(position.row, position.column + 1);
+			return Cell(position.column + 1, position.row);
 		case SE:
-			return Cell(position.row + 1, position.column + 1);
+			return Cell(position.column + 1, position.row + 1);
 		case S:
-			return Cell(position.row + 1, position.column);
+			return Cell(position.column, position.row + 1);
 		case SW:
-			return Cell(position.row + 1, position.column - 1);
+			return Cell(position.column - 1, position.row + 1);
 		case W:
-			return Cell(position.row, position.column - 1);
+			return Cell(position.column - 1, position.row);
 		case NW:
-			return Cell(position.row - 1, position.column - 1);
+			return Cell(position.column - 1, position.row - 1);
 	}
 }
 

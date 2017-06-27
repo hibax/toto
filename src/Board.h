@@ -9,6 +9,7 @@ using namespace std;
 
 class Board {
 public:
+	Board();
 	Board(Grid &g, vector<Unit> &ours, vector<Unit> &others, vector<string> &legalActions);
 
 	string generateAction(const int& counter);

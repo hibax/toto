@@ -12,13 +12,13 @@ namespace GameRules {
 	template <>
 	vector<pair<Action, Board> > produceNextStates(const pair<Action, Board> & state, bool myTurn) {
 
+		const Board & board = state.second;
 		vector<pair<Action, Board> > nextStates;
+		auto actions = board.produceAllLegalActions(myTurn);
 
-		Board currentBoard = get<1>(state);
-		vector<Action> actions = currentBoard.produceAllLegalActions(myTurn);
+		for (const Action & action : actions) {
+			nextStates.push_back(make_pair(action, board.play(action)));
 
-		for (Action action : actions) {
-			nextStates.push_back(make_pair(action, currentBoard.play(action)));
 		}
 
 		return nextStates;
