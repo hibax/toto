@@ -31,8 +31,15 @@ vector<Unit> Board::getOtherUnits() const { return otherUnits; }
 Grid Board::getGrid() const { return grid; }
 
 Cell Board::getPosition(int index) const {
-	return ourUnits[index].getPosition();
+	return getUnit(index).getPosition();
 }
+
+const Unit& Board::getUnit(int index) const {
+	if (index < ourUnits.size()) {
+		return ourUnits[index];
+	}
+	return otherUnits[index - ourUnits.size()];
+} 
 
 Cell Board::getDestinationCell(const Cell & position, DIRECTION direction) {
 	switch (direction) {
@@ -101,11 +108,24 @@ bool Board::isValid(const Action & action) const {
 }
 
 Board Board::play(const Action & action) const {
-	Grid grid(vector<vector<int> >(), 0);
-	vector<Unit> u1;
-	vector<Unit> u2;
-	vector<string>lA;
-	return Board(grid, u1, u2, lA);
+	
+	vector<Unit> newOurUnits(ourUnits);
+	vector<Unit> newOtherUnits(otherUnits);
+
+	const Unit & unit = getUnit(action.getIndex());
+	auto newUnit = unit.move(getDestinationCell(unit.getPosition(), action.getDirMove()));
+
+	if (action.getIndex() < newOurUnits.size()) {
+		newOurUnits[action.getIndex()] = newUnit;
+	} else {
+		newOtherUnits[action.getIndex() - newOurUnits.size()] = newUnit;
+	}
+
+	auto newGrid = grid.build(getDestinationCell(newUnit.getPosition(), action.getDirBuild()));
+
+	vector<string> lA;
+
+	return Board(newGrid, newOurUnits, newOtherUnits, lA);
 }
 
 

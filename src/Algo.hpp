@@ -14,7 +14,7 @@ namespace Algo
 	T getBest(const T & currentState) {
 		Node<T> rootNode(currentState);
 
-		computeTurns(rootNode, true, 0);
+		computeTurns(rootNode, true, 5);
 
 		auto state = evaluatePaths(rootNode);
 
