@@ -16,9 +16,9 @@ namespace GameRules {
 		vector<pair<Action, Board> > nextStates;
 		auto actions = board.produceAllLegalActions(myTurn);
 
-
 		for (const Action & action : actions) {
 			nextStates.push_back(make_pair(action, board.play(action)));
+
 		}
 
 		return nextStates;
