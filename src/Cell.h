@@ -3,12 +3,12 @@
 
 struct Cell
 {
-	int row;
 	int column;
+	int row;
 
-	Cell(int row, int column) : row(row), column(column)
+	Cell(int column, int row) : column(column), row(row)
 	{}
 	
-	Cell() : row(0), column(0)
+	Cell() : column(0), row(0)
 	{}
 };

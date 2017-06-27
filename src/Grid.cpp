@@ -4,6 +4,7 @@ const static int HOLE = -1;
 const static int CEILING = 4;
 
 
+Grid::Grid(): cells(), size(0) {}
 Grid::Grid(const vector<vector<int> > &cells, int size): cells(cells), size(size) {}
 
 int Grid::getCell(const Cell &p) const { return cells.at(p.row).at(p.column); }
@@ -37,8 +38,7 @@ void Grid::fillGrid(Grid & grid, const vector<string> &rows, const int &size) {
 
 	for (int y = 0; y < size; y++) {
 		for (int x = 0; x < size; x++) {
-			char c = rows.at(y).at(x);
-			int a = int(c);
+			const char c = rows.at(y).at(x);
 			switch (c)
 			{
 			case '.':

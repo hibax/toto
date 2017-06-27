@@ -7,6 +7,7 @@ using namespace std;
 
 class Grid {
 public:
+	Grid();
 	Grid(const vector<vector<int> > &cells, int size);
 
 	int getCell(const Cell &p) const;

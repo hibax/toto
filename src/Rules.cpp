@@ -10,14 +10,15 @@ using namespace std;
 namespace GameRules {
 
 	template <>
-	vector<Board> produceNextStates(const Board & state, bool myTurn) {
+	vector<pair<Action, Board> > produceNextStates(const pair<Action, Board> & state, bool myTurn) {
 
-		vector<Board> nextStates;
-		vector<Action> actions = state.produceAllLegalActions(myTurn);
+		const Board & board = state.second;
+		vector<pair<Action, Board> > nextStates;
+		auto actions = board.produceAllLegalActions(myTurn);
 
 
-		for (Action action : actions) {
-			nextStates.push_back(state.play(action));
+		for (const Action & action : actions) {
+			nextStates.push_back(make_pair(action, board.play(action)));
 		}
 
 		return nextStates;
