@@ -75,3 +75,40 @@ TEST(Board, testGenerateAction) {
 
 }
 
+
+TEST(Board, testCantClimb) {
+
+	int counter = 1;
+
+	int size = 5;
+	int unitsPerPlayer = 1;
+	vector<string> rows;
+	rows.push_back("00000");
+	rows.push_back("00000");
+	rows.push_back("00000");
+	rows.push_back("00000");
+	rows.push_back("30000");
+
+	vector<Unit> ourUnits;
+	ourUnits.push_back(Unit(0, { 0, 3 }));
+	vector<Unit> otherUnits;
+	otherUnits.push_back(Unit(1, { 3, 3 }));
+
+	vector<string> legalActions;
+
+
+	vector<vector<int> > cells(size, vector<int>(size));
+	Grid grid(cells, size);
+	grid.fillGrid(grid, rows, size);
+
+	Board board(grid, ourUnits, otherUnits, legalActions);
+
+	pair<Action, Board> result = Algo::getBest(make_pair(Action(), board));
+
+	Action actionToPerform = result.first;
+	string actionAsString = actionToPerform.getAsString();
+
+	EXPECT_NE(actionAsString.substr(0, actionAsString.size()-2), "MOVE&BUILD 0 S");
+
+}
+

@@ -99,10 +99,10 @@ bool Board::isValid(const Action & action) const {
 	const Cell & sourceCell = getPosition(action.getIndex());
 	const Cell & destinationCell = getDestinationCell(sourceCell, action.getDirMove());
 
-	bool canMove = grid.canMove(sourceCell, destinationCell);
+	bool canMove = grid.canMove(sourceCell, destinationCell, ourUnits, otherUnits);
 
 	const Cell & buildCell = getDestinationCell(destinationCell, action.getDirBuild());
-	bool canBuild = grid.canBuild(sourceCell, buildCell);
+	bool canBuild = grid.canBuild(sourceCell, buildCell, ourUnits, otherUnits);
 
 	return canMove && canBuild;
 }

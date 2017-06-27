@@ -14,7 +14,7 @@ namespace Algo
 	T getBest(const T & currentState) {
 		Node<T> rootNode(currentState);
 
-		computeTurns(rootNode, true, 5);
+		computeTurns(rootNode, true, 1);
 
 		auto state = evaluatePaths(rootNode);
 
@@ -62,7 +62,7 @@ T evaluatePaths(const Node<T> & rootNode) {
 
 	for (Node<T> & child : rootNode.getChildren()) {
 		const int score = evaluateSubPaths(child);
-		if (score > bestScore) {
+		if (score >= bestScore) {
 			bestScore = score;
 			state = child.getValue();
 		}

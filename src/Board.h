@@ -18,6 +18,7 @@ public:
 
 	vector<Unit> getOurUnits() const;
 	vector<Unit> getOtherUnits() const;
+	const Unit& getUnit(int index) const;
 	Grid getGrid() const;
 
 	bool isValid(const Action & action) const;
@@ -32,7 +33,6 @@ public:
 
 private:
 	Cell getPosition(int index) const;
-	const Unit& getUnit(int index) const;
 
 	Grid grid;
 	vector<Unit> ourUnits;
