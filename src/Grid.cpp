@@ -34,6 +34,13 @@ bool Grid::canBuild(const Cell & source, const Cell & destination) const {
 	return isInGame(destination);
 }
 
+Grid Grid::build(const Cell & cell) const {
+	Grid grid(cells, size);
+	grid.setCell(cell, grid.getCell(cell) + 1);
+
+	return grid;
+}
+
 void Grid::fillGrid(Grid & grid, const vector<string> &rows, const int &size) {
 
 	for (int y = 0; y < size; y++) {

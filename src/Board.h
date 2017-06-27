@@ -32,6 +32,7 @@ public:
 
 private:
 	Cell getPosition(int index) const;
+	const Unit& getUnit(int index) const;
 
 	Grid grid;
 	vector<Unit> ourUnits;
