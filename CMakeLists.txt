@@ -3,7 +3,9 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(gtest-demo)
 
 enable_language(CXX)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fpermissive")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fpermissive ")
+
+find_package (Threads)
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/src
@@ -53,6 +55,7 @@ target_link_libraries(
     unit_tests
     googletest
     toto
+	${CMAKE_THREAD_LIBS_INIT}
     )
 
 include(CTest)
