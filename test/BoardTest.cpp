@@ -78,7 +78,6 @@ TEST(Board, testGenerateAction) {
 
 TEST(Board, testCantClimb) {
 
-	int counter = 1;
 
 	int size = 5;
 	int unitsPerPlayer = 1;

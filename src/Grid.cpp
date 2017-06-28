@@ -29,6 +29,11 @@ bool Grid::canMove(const Cell & source, const Cell & destination, const vector<U
 	{
 		return false;
 	}
+	for (Unit ourUnit : ourUnits) {
+		if (ourUnit.getPosition().column == destination.column && ourUnit.getPosition().row == destination.row) {
+			return false;
+		}
+	}
 	for (Unit otherUnit : otherUnits) {
 		if (otherUnit.getPosition().column == destination.column && otherUnit.getPosition().row == destination.row) {
 			return false;
@@ -42,8 +47,13 @@ bool Grid::canBuild(const Cell & source, const Cell & destination, const vector<
 	if (!inGrid(destination.column, destination.row)) {
 		return false;
 	}
-	if (getCell(destination.column, destination.row) < 0 || getCell(destination.column, destination.row) > 2) {
+	if (getCell(destination.column, destination.row) < 0 || getCell(destination.column, destination.row) > 3) {
 		return false;
+	}
+	for (Unit ourUnit : ourUnits) {
+		if (ourUnit.getPosition().column == destination.column && ourUnit.getPosition().row == destination.row) {
+			return false;
+		}
 	}
 	for (Unit otherUnit : otherUnits) {
 		if (otherUnit.getPosition().column == destination.column && otherUnit.getPosition().row == destination.row) {
