@@ -18,39 +18,18 @@ bool Grid::isInGame(const Cell & cell) const {
 	return cellHeight > HOLE && cellHeight < CEILING;
 }
 
-bool Grid::canMove(const Cell & source, const Cell & destination, const vector<Unit> &ourUnits, const vector<Unit> &otherUnits) const {
+bool Grid::canMove(const Cell & source, const Cell & destination) const {
 	if (!inGrid(destination.column, destination.row) || !isInGame(destination)) {
 		return false;
-	}
-	int a = getCell(destination.column, destination.row);
-	int b = getCell(source.column, source.row);
-	
-	if (getCell(destination.column, destination.row) - getCell(source.column, source.row) > 1)
-	{
-		return false;
-	}
-	for (Unit otherUnit : otherUnits) {
-		if (otherUnit.getPosition().column == destination.column && otherUnit.getPosition().row == destination.row) {
-			return false;
-		}
 	}
 
 	return (getCell(source) + 1) >= getCell(destination);
 }
 
-bool Grid::canBuild(const Cell & source, const Cell & destination, const vector<Unit> &ourUnits, const vector<Unit> &otherUnits) const {
+bool Grid::canBuild(const Cell & source, const Cell & destination) const {
 	if (!inGrid(destination.column, destination.row)) {
 		return false;
 	}
-	if (getCell(destination.column, destination.row) < 0 || getCell(destination.column, destination.row) > 2) {
-		return false;
-	}
-	for (Unit otherUnit : otherUnits) {
-		if (otherUnit.getPosition().column == destination.column && otherUnit.getPosition().row == destination.row) {
-			return false;
-		}
-	}
-	
 
 	return isInGame(destination);
 }

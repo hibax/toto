@@ -95,16 +95,44 @@ vector<Action> Board::produceAllLegalActions(bool myTurn) const
 	return allActions;
 }
 
+bool Board::canBuild(const Cell & sourceCell, const Cell & destinationCell) const {
+	if (!grid.canBuild(sourceCell, destinationCell)) {
+		return false;
+	}
+
+	for (Unit otherUnit : otherUnits) {
+		if (otherUnit.getPosition().column == destinationCell.column && otherUnit.getPosition().row == destinationCell.row) {
+			return false;
+		}
+	}
+
+	return grid.getCell(destinationCell) < 3;
+}
+
+bool Board::canMove(const Cell & sourceCell, const Cell & destinationCell) const {
+	if (!grid.canMove(sourceCell, destinationCell)) {
+		return false;
+	}
+
+	for (const Unit & otherUnit : otherUnits) {
+		if (otherUnit.getPosition().column == destinationCell.column && otherUnit.getPosition().row == destinationCell.row) {
+			return false;
+		}
+	}
+	
+	return true;
+}
+
 bool Board::isValid(const Action & action) const {
 	const Cell & sourceCell = getPosition(action.getIndex());
 	const Cell & destinationCell = getDestinationCell(sourceCell, action.getDirMove());
 
-	bool canMove = grid.canMove(sourceCell, destinationCell, ourUnits, otherUnits);
+	bool can_move = canMove(sourceCell, destinationCell);
 
 	const Cell & buildCell = getDestinationCell(destinationCell, action.getDirBuild());
-	bool canBuild = grid.canBuild(sourceCell, buildCell, ourUnits, otherUnits);
+	bool canBuild = grid.canBuild(sourceCell, buildCell);
 
-	return canMove && canBuild;
+	return can_move && canBuild;
 }
 
 Board Board::play(const Action & action) const {

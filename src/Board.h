@@ -23,6 +23,9 @@ public:
 
 	bool isValid(const Action & action) const;
 
+	bool canBuild(const Cell & sourceCell, const Cell & destinationCell) const;
+	bool canMove(const Cell & sourceCell, const Cell & destinationCell) const;
+
 	Board play(const Action & action) const;
 
 	static Cell getDestinationCell(const Cell & position, DIRECTION direction);
