@@ -88,7 +88,7 @@ namespace Evaluation {
 		for (const DIRECTION & direction : DIRECTIONS) {
 			const Cell & dst = Board::getDestinationCell(unitPosition, direction);
 
-			if (board.getGrid().canMove(unitPosition, dst, board.getOurUnits(), board.getOtherUnits())) {
+			if (board.canMove(unitPosition, dst)) {
 				return false;
 			}
 		}

@@ -39,10 +39,10 @@ TEST(Evaluation, firstTest){
 	EXPECT_EQ(2*SCORING_VALUE + 6, Evaluation::score(make_pair(actionScore, board.play(actionScore))));
 
 	Action actionCloseBuilding(ACTION_TYPE::MOVEBUILD, 0, DIRECTION::E, DIRECTION::SW);
-	EXPECT_EQ(-CLOSING_BUILDING_VALUE + 4, Evaluation::score(make_pair(actionCloseBuilding, board.play(actionCloseBuilding))));
+	EXPECT_EQ(-CLOSING_BUILDING_VALUE - 4, Evaluation::score(make_pair(actionCloseBuilding, board.play(actionCloseBuilding))));
 
 	Action actionBlockingEnemy(ACTION_TYPE::MOVEBUILD, 0, DIRECTION::E, DIRECTION::SE);
-	EXPECT_EQ(BLOCKING_VALUE + 2, Evaluation::score(make_pair(actionBlockingEnemy, board.play(actionBlockingEnemy))));
+	EXPECT_EQ(BLOCKING_VALUE - 2, Evaluation::score(make_pair(actionBlockingEnemy, board.play(actionBlockingEnemy))));
 
 
 	pair<Action, Board> bestState = Algo::getBest(make_pair(Action(), board));

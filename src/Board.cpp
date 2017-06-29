@@ -105,6 +105,11 @@ bool Board::canBuild(const Cell & sourceCell, const Cell & destinationCell) cons
 			return false;
 		}
 	}
+	for (Unit ourUnit : ourUnits) {
+		if (ourUnit.getPosition().column == destinationCell.column && ourUnit.getPosition().row == destinationCell.row) {
+			return false;
+		}
+	}
 
 	return grid.getCell(destinationCell) < 3;
 }
@@ -119,6 +124,11 @@ bool Board::canMove(const Cell & sourceCell, const Cell & destinationCell) const
 			return false;
 		}
 	}
+	for (Unit ourUnit : ourUnits) {
+		if (ourUnit.getPosition().column == destinationCell.column && ourUnit.getPosition().row == destinationCell.row) {
+			return false;
+		}
+	}
 	
 	return true;
 }
@@ -127,10 +137,10 @@ bool Board::isValid(const Action & action) const {
 	const Cell & sourceCell = getPosition(action.getIndex());
 	const Cell & destinationCell = getDestinationCell(sourceCell, action.getDirMove());
 
-	bool can_move = canMove(sourceCell, destinationCell);
+	bool can_move = Board::canMove(sourceCell, destinationCell);
 
 	const Cell & buildCell = getDestinationCell(destinationCell, action.getDirBuild());
-	bool canBuild = grid.canBuild(sourceCell, buildCell);
+	bool canBuild = Board::canBuild(sourceCell, buildCell);
 
 	return can_move && canBuild;
 }
