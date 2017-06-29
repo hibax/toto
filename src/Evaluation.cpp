@@ -49,7 +49,9 @@ namespace Evaluation {
 			score += scoreUnit(unit, buildCell, board);
 		}
 		for (const Unit & unit : board.getOtherUnits()) {
-			score -= scoreUnit(unit, buildCell, board);
+			if (grid.inGrid(unit.getPosition().column, unit.getPosition().row)) {
+				score -= scoreUnit(unit, buildCell, board);
+			}
 		}
 
 
