@@ -26,12 +26,12 @@ bool Grid::canMove(const Cell & source, const Cell & destination) const {
 	return (getCell(source) + 1) >= getCell(destination);
 }
 
-bool Grid::canBuild(const Cell & source, const Cell & destination) const {
-	if (!inGrid(destination.column, destination.row)) {
+bool Grid::canBuild(const Cell & buildCell) const {
+	if (!inGrid(buildCell.column, buildCell.row)) {
 		return false;
 	}
 
-	return isInGame(destination);
+	return isInGame(buildCell);
 }
 
 Grid Grid::build(const Cell & cell) const {

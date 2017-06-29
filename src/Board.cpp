@@ -66,7 +66,7 @@ vector<Action> Board::produceUnitLegalActions(const Unit & unit) const
 {
 	vector<Action> legalActions;
 
-	for (int dirMove = DIRECTION::N; dirMove != DIRECTION::NW; ++dirMove) {
+	for (int dirMove = DIRECTION::N; dirMove != DIRECTION::NW + 1; ++dirMove) {
 
 		for (int dirBuild = DIRECTION::N; dirBuild != DIRECTION::NW; ++dirBuild) {
 
@@ -95,23 +95,25 @@ vector<Action> Board::produceAllLegalActions(bool myTurn) const
 	return allActions;
 }
 
-bool Board::canBuild(const Cell & sourceCell, const Cell & destinationCell) const {
-	if (!grid.canBuild(sourceCell, destinationCell)) {
+bool Board::canBuild(const Unit & builderUnit, const Cell & buildCell) const {
+	if (!grid.canBuild(buildCell)) {
 		return false;
 	}
 
 	for (Unit otherUnit : otherUnits) {
-		if (otherUnit.getPosition().column == destinationCell.column && otherUnit.getPosition().row == destinationCell.row) {
+		if (otherUnit.getPosition().column == buildCell.column && otherUnit.getPosition().row == buildCell.row) {
 			return false;
 		}
 	}
 	for (Unit ourUnit : ourUnits) {
-		if (ourUnit.getPosition().column == destinationCell.column && ourUnit.getPosition().row == destinationCell.row) {
-			return false;
+		if (ourUnit.getId() != builderUnit.getId()) {
+			if (ourUnit.getPosition().column == buildCell.column && ourUnit.getPosition().row == buildCell.row) {
+				return false;
+			}
 		}
 	}
 
-	return grid.getCell(destinationCell) < 3;
+	return true;
 }
 
 bool Board::canMove(const Cell & sourceCell, const Cell & destinationCell) const {
@@ -140,7 +142,7 @@ bool Board::isValid(const Action & action) const {
 	bool can_move = Board::canMove(sourceCell, destinationCell);
 
 	const Cell & buildCell = getDestinationCell(destinationCell, action.getDirBuild());
-	bool canBuild = Board::canBuild(sourceCell, buildCell);
+	bool canBuild = Board::canBuild(getUnit(action.getIndex()), buildCell);
 
 	return can_move && canBuild;
 }

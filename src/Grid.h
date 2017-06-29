@@ -18,7 +18,7 @@ public:
 	bool inGrid(int row, int column) const;
 	bool isInGame(const Cell & cell) const;
 	bool canMove(const Cell & source, const Cell & destination) const;
-	bool canBuild(const Cell & source, const Cell & destination) const;
+	bool canBuild(const Cell & buildCell) const;
 	Grid build(const Cell & cell) const;
 	void fillGrid(Grid & grid, const vector<string> &rows, const int &size);
 
