@@ -1,3 +1,6 @@
+#pragma GCC optimize("O3")
+#pragma GCC optimize("inline")
+#pragma GCC optimize("omit-frame-pointer")
 
 #include <iostream>
 #include <string>
@@ -9,6 +12,9 @@
 #include "Cell.h"
 #include "Unit.h"
 #include "Board.h"
+#include <iostream>
+#include <chrono>
+typedef std::chrono::high_resolution_clock Clock;
 
 using namespace std;
 
@@ -23,6 +29,8 @@ int main()
 
 	// game loop
 	while (1) {
+
+		auto t1 = Clock::now();
 
 		int index = 0;
 		vector<string> rows;
@@ -71,8 +79,13 @@ int main()
 
 		// Write an action using cout. DON'T FORGET THE "<< endl"
 		// To debug: cerr << "Debug messages..." << endl;
-		counter++;
-		cout << bestAction.getAsString() << endl;
+		
+		
+		auto t2 = Clock::now(); 
+	
+		auto time = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
+
+		cout << bestAction.getAsString() << " " << time << " ms" << endl;
 
 	}
 }
